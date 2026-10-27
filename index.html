@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Maaltijdlijst</title>
+  <!-- Icono para la pantalla de inicio: iPhone usa apple-touch-icon, Android usa el manifiesto -->
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#6B1530">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Maaltijden">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <style>
+    html, body { margin: 0; height: 100%; background: #FBF6F1; }
+    body { padding-top: env(safe-area-inset-top); box-sizing: border-box; }
+    iframe { display: block; width: 100%; height: 100%; border: 0; }
+    #laden { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 14px; background: #6B1530; color: #FBF6F1; font: 16px -apple-system, "Segoe UI", Roboto, sans-serif; transition: opacity .3s; }
+    #laden img { width: 96px; height: 96px; border-radius: 22px; }
+    #laden a { color: #EBC9D4; font-size: 14px; display: none; }
+  </style>
+</head>
+<body>
+  <!-- La lista de comidas es la app de Apps Script; esta página solo la muestra (los datos siguen en Google Sheets) -->
+  <iframe id="app" src="https://script.google.com/macros/s/AKfycbxZ6YAFlw7MhBUVcvAvKW7ukKtEd5DmDKZUV4mC7O1IR0DMMTM4n5iL4TCl9TVRr0UB/exec"
+    title="Maaltijdlijst" allow="clipboard-write"></iframe>
+  <div id="laden">
+    <img src="icon-192.png" alt="">
+    <span>Maaltijdlijst…</span>
+    <a id="direct" href="https://script.google.com/macros/s/AKfycbxZ6YAFlw7MhBUVcvAvKW7ukKtEd5DmDKZUV4mC7O1IR0DMMTM4n5iL4TCl9TVRr0UB/exec">Openen / Abrir</a>
+  </div>
+  <script>
+    var laden = document.getElementById('laden');
+    document.getElementById('app').addEventListener('load', function () {
+      laden.style.opacity = '0';
+      setTimeout(function () { laden.style.display = 'none'; }, 300);
+    });
+    // Si después de 12 segundos no cargó, se muestra un enlace directo
+    setTimeout(function () { document.getElementById('direct').style.display = 'block'; }, 12000);
+  </script>
+</body>
+</html>
